@@ -21,9 +21,10 @@ public class Vector
 
     public Vector(double _x, double _y, double _z)
     {
-        if (head.equals( Point3D.ZERO))
+        Point3D temp =new Point3D(new Coordinate(_x),new Coordinate(_y),new Coordinate(_z));
+        if (temp.equals( Point3D.ZERO))
             throw new IllegalArgumentException("cannot create zero vector");
-        head=new Point3D(new Coordinate(_x),new Coordinate(_y),new Coordinate(_z));
+        head=new Point3D(temp);
     }
 
     public Vector(Point3D head)
@@ -38,28 +39,41 @@ public class Vector
         this.head = v.head;
     }
 
-    public Vector(Point3D p1, Point3D p2) { this(p1.subtract(p2)); }
+    public Vector(Point3D p1, Point3D p2)
+    {
+        this(p1.subtract(p2));
+    }
 
     /**
      * function to subtract vectors
      * @param secondVector vector to be subtracted
      * @return new vector
      */
-    public Vector subtract(Vector secondVector) { return this.head.subtract(secondVector.head); }
+    public Vector subtract(Vector secondVector)
+    {
+        return this.head.subtract(secondVector.head);
+    }
 
     /**
      * adds vectors
      * @param v vector to be added
      * @return new vector
      */
-    public Vector add(Vector v) { return new Vector(this.head.add(v)); }
+    public Vector add(Vector v)
+    {
+        return new Vector(this.head.add(v));
+    }
 
     /**
      * multiplies a scalar with a vector
      * @param v scalar to be multiplied
      * @return vector result
      */
-    public Vector scale(double v) { return new Vector(new Point3D(new Coordinate(v*head._x.get()),new Coordinate(v*head._y.get()),new Coordinate(v*head._z.get()))); }
+    public Vector scale(double v)
+    {
+        return new Vector(new Point3D(new Coordinate(v*head._x.get()),
+                new Coordinate(v*head._y.get()),new Coordinate(v*head._z.get())));
+    }
 
     /**
      * dot multiplies vectors to create a scalar
