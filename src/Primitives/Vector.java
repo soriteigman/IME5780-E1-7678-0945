@@ -13,44 +13,24 @@ public class Vector
     public Vector(Coordinate _x, Coordinate _y, Coordinate _z)
     {
         Coordinate zero=new Coordinate(0.0);
-        try
-        {
+
             if (_x.equals(zero) && _y.equals(zero) && _z.equals(zero))
                 throw new IllegalArgumentException("cannot create zero vector");
             head=new Point3D(new Coordinate(_x),new Coordinate(_y),new Coordinate(_z));
-        }
-        catch (IllegalArgumentException e)
-        {
-            //TO DO
-        }
     }
 
     public Vector(double _x, double _y, double _z)
     {
-        this(new Coordinate(_x), new Coordinate(_y), new Coordinate(_z));
-        try
-        {
-            if (head.equals( Point3D.ZERO))
-                throw new IllegalArgumentException("cannot create zero vector");
-        }
-        catch (IllegalArgumentException e)
-        {
-            //TO DO
-        }
+        if (head.equals( Point3D.ZERO))
+            throw new IllegalArgumentException("cannot create zero vector");
+        head=new Point3D(new Coordinate(_x),new Coordinate(_y),new Coordinate(_z));
     }
 
     public Vector(Point3D head)
     {
-        try
-        {
-            if (head.equals( Point3D.ZERO))
-                throw new IllegalArgumentException("cannot create zero vector");
-            this.head = head;
-        }
-        catch (IllegalArgumentException e)
-        {
-            //TO DO
-        }
+        if (head.equals( Point3D.ZERO))
+            throw new IllegalArgumentException("cannot create zero vector");
+        this.head = head;
     }
 
     public Vector(Vector v)

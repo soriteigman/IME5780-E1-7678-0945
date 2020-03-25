@@ -4,6 +4,11 @@ import Primitives.Point3D;
 import Primitives.Ray;
 import Primitives.Vector;
 
+/**
+ * Class Cylinder is the class representing a cylinder
+ *
+ * @author Esther Burack and Sara Teigman
+ */
 public class Cylinder extends Tube
 {
 
