@@ -2,16 +2,13 @@ package Geometries;
 
 /**
  * @author Sara Teigman and Esther Burack
- * RadialGeometry is ana abstract class that defines
+ * RadialGeometry is an abstract class that defines
  * all radial geometries.
  */
 public abstract class RadialGeometry implements Geometry
 {
     double  _radius;
-    /**
-     *
-     * @param _radius
-     */
+
     public RadialGeometry(double _radius) {
         this._radius = _radius;
     }

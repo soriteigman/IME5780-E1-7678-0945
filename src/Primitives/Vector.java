@@ -40,12 +40,32 @@ public class Vector
 
     public Vector(Point3D p1, Point3D p2) { this(p1.subtract(p2)); }
 
+    /**
+     * function to subtract vectors
+     * @param secondVector vector to be subtracted
+     * @return new vector
+     */
     public Vector subtract(Vector secondVector) { return this.head.subtract(secondVector.head); }
 
+    /**
+     * adds vectors
+     * @param v vector to be added
+     * @return new vector
+     */
     public Vector add(Vector v) { return new Vector(this.head.add(v)); }
 
+    /**
+     * multiplies a scalar with a vector
+     * @param v scalar to be multiplied
+     * @return vector result
+     */
     public Vector scale(double v) { return new Vector(new Point3D(new Coordinate(v*head._x.get()),new Coordinate(v*head._y.get()),new Coordinate(v*head._z.get()))); }
 
+    /**
+     * dot multiplies vectors to create a scalar
+     * @param v vector to multiply by
+     * @return scalar result
+     */
     public double dotProduct(Vector v)
     {
         return (this.head._x._coord * v.head._x._coord +
@@ -53,6 +73,11 @@ public class Vector
                 this.head._z._coord * v.head._z._coord);
     }
 
+    /**
+     * cross product multiplacation between two vectors
+     * @param v vector to multiply by
+     * @return vector result
+     */
     public Vector crossProduct(Vector v)
     {
         double w1 = this.head._y._coord * v.head._z._coord - this.head._z._coord * v.head._y._coord;
@@ -61,6 +86,10 @@ public class Vector
         return new Vector(new Point3D(w1, w2, w3));
     }
 
+    /**
+     *
+     * @return length of a vector squared
+     */
     public double lengthSquared()
     {
         double xx = this.head._x._coord * this.head._x._coord;
@@ -69,8 +98,16 @@ public class Vector
         return xx + yy + zz;
     }
 
+    /**
+     *
+     * @return length of a vector
+     */
     public double length() { return Math.sqrt(lengthSquared()); }
 
+    /**
+     *
+     * @return normalizes vector that was sent
+     */
     public Vector normalize()
     {
         double x = this.head._x._coord;
@@ -85,6 +122,10 @@ public class Vector
         return this;
     }
 
+    /**
+     *
+     * @return returns a new vector thats the normalization of sent vector
+     */
     public Vector normalized()
     {
         Vector vector = new Vector(this);
