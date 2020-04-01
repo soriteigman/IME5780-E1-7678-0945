@@ -1,11 +1,11 @@
 package Geometries;
 
-import Primitives.Coordinate;
-import Primitives.Point3D;
-import Primitives.Util;
-import Primitives.Vector;
+import Primitives.*;
 
+import java.util.List;
 import java.util.Objects;
+
+import static Primitives.Util.alignZero;
 
 public class Sphere extends RadialGeometry
 {
@@ -44,4 +44,5 @@ public class Sphere extends RadialGeometry
                 ", _radius=" + _radius +
                 '}';
     }
+
 }

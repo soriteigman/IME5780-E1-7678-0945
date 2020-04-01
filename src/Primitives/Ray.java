@@ -2,6 +2,9 @@ package Primitives;
 
 import java.awt.*;
 import java.util.Objects;
+
+import static Primitives.Util.isZero;
+
 /**
  * Class Ray is the basic class representing a ray of Euclidean geometry in Cartesian
  *  *  * 3-Dimensional coordinate system.
@@ -23,6 +26,16 @@ public class Ray
     {
         return new Point3D(_poo);
     }
+
+    /**
+     * @author
+     * @param length
+     * @return new Point3D
+     */
+    public Point3D getTargetPoint(double length) {
+        return isZero(length ) ? _poo : _poo.add(direction.scale(length));
+    }
+
 
     public Vector getDirection()
     {
