@@ -1,7 +1,10 @@
 package Geometries;
 
 import Primitives.Point3D;
+import Primitives.Ray;
 import Primitives.Vector;
+
+import java.util.List;
 
 public class Plane implements Geometry
 {
@@ -18,7 +21,7 @@ public class Plane implements Geometry
         Vector N = U.crossProduct(V);
         N.normalize();
 
-        _normal = N.scale(-1);
+        _normal = N.scale(1);
     }
 
     public Plane(Point3D _p, Vector _normal)

@@ -4,15 +4,16 @@ import Primitives .*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 class TubeTest {
 
     @Test
     void getNormal() {
-        Tube t1 = new Tube( 3,new Ray(new Point3D(0,0,0), new Vector(1,2,3)));
+        Vector expected=new Vector(0,1,0);
+        //o=(0,0,5), t=5, po=(0,0,3)  po.normalize=(0,0,1)
+        Tube t1 = new Tube( 5,new Ray(new Point3D(0,0,0),new Vector(0,0,1)));
 
         // ============ Equivalence Partitions Tests ==============
-        assertEquals( new Vector(new Point3D(34, 68, 102)), t1.getNormal(new Point3D(2,4,8)),"");
+        assertEquals(expected , t1.getNormal(new Point3D(0,3,5)),"normal to point on tube in inaccurate");
 
     }
 }

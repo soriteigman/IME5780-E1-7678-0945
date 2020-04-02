@@ -1,8 +1,11 @@
 package Geometries;
 
 import Primitives.Point3D;
+import Primitives.Ray;
 import Primitives.Vector;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static java.lang.Math.sqrt;
 import static org.junit.jupiter.api.Assertions.*;

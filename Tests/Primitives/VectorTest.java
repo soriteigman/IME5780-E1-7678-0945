@@ -1,14 +1,13 @@
 package Primitives;
-
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class VectorTest {
 
-   // @org.junit.jupiter.api.AfterEach
-    //void tearDown() {
-    //}
+class VectorTest {
+    /**
+     * Unit tests for primitives.Vector class
+     * @author esther burack and sara teigman
+     */
 
     @Test
     void subtractTest() {
@@ -45,6 +44,7 @@ class VectorTest {
         Vector v3test = v2test.scale(-2);
         assertEquals(new Vector(-4,-4,-4),v3test);
     }
+
 
     @Test
     void dotProductTest() {
@@ -99,7 +99,7 @@ class VectorTest {
             v.normalize();
             fail("Didn't throw divide by zero exception!");
         } catch (IllegalArgumentException ex) {
-            assertEquals("Point3D(0.0,0.0,0.0) not valid for vector head", ex.getMessage());
+            assertEquals("cannot create zero vector", ex.getMessage());
         }
         assertTrue(true);
     }
