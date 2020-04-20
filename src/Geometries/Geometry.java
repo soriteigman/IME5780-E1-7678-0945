@@ -9,7 +9,7 @@ import Primitives.Vector;
  *
  * @author Sara Teigman and Esther Burack
  */
-public interface Geometry
+public interface Geometry extends Intersectable
 {
     /**
      *

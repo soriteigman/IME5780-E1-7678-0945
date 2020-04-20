@@ -22,7 +22,7 @@ public class Ray
         this.direction = direction.normalized();//normalizes vector before setting as direction
     }
 
-    public Point3D get_poo()
+    public Point3D getPoint()
     {
         return new Point3D(_poo);
     }
@@ -59,4 +59,12 @@ public class Ray
                 "Point3D=" + _poo +
                 ", Vector=" + direction + '}';
     }
+
+    public Point3D getPoint(double t)
+    {
+        if(isZero(t))
+            return _poo;
+        return _poo.add(direction.scale(t));
+    }
+
 }

@@ -2,6 +2,8 @@ package Geometries;
 
 import Primitives.*;
 
+import java.util.List;
+
 import static Primitives.Util.alignZero;
 import static Primitives.Util.isZero;
 
@@ -37,13 +39,13 @@ public class Cylinder extends Tube
     @Override
     public Vector getNormal(Point3D point)
     {
-        Plane plane = new Plane(ray.get_poo(), ray.getDirection());
-        Vector v1 = ray.get_poo().subtract(point);
+        Plane plane = new Plane(ray.getPoint(), ray.getDirection());
+        Vector v1 = ray.getPoint().subtract(point);
         if((v1.dotProduct(ray.getDirection()))==0) //the vectors are orthogonal
         {
             return (ray.getDirection().scale(-1)).normalize();
         }
-        Point3D p1 = ray.get_poo().add(ray.getDirection().normalized().scale(height));
+        Point3D p1 = ray.getPoint().add(ray.getDirection().normalized().scale(height));
         v1 = p1.subtract(point);
         if((v1.dotProduct(ray.getDirection()))==0) //the vectors are orthogonal
         {
@@ -55,4 +57,9 @@ public class Cylinder extends Tube
         Point3D o = new Point3D(v.scale(t).getHead());
         Vector n = (p.subtract(o)).normalize();
         return n;    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return super.findIntersections(ray);
+    }
 }
