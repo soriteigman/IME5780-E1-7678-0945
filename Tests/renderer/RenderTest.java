@@ -13,7 +13,7 @@ class RenderTest {
      * Produce a scene with basic 3D model and render it into a jpeg image with a
      * grid
      */
-    @Test
+    @Test//
     public void basicRenderTwoColorTest() {
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
