@@ -42,4 +42,10 @@ public class geometries implements Intersectable {
     public List<Intersectable> get_geometries() {
         return _geometries;
     }
+
+    public void remove(Intersectable... intersectables) {
+        for (Intersectable geo : _geometries) {
+            _geometries.remove(geo);
+        }
+    }
 }
