@@ -9,7 +9,7 @@ import java.util.List;
 import static Primitives.Util.alignZero;
 import static Primitives.Util.isZero;
 
-public class Plane implements Geometry
+public class Plane extends Geometry
 {
 
     Point3D _p;
@@ -44,7 +44,7 @@ public class Plane implements Geometry
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         Vector p0Q;
         try {
             p0Q = _p.subtract(ray.getPoint());
@@ -58,7 +58,7 @@ public class Plane implements Geometry
 
         double t = alignZero(_normal.dotProduct(p0Q) / nv);
 
-        return t <= 0 ? null : List.of(ray.getTargetPoint(t));
+        return t <= 0 ? null : List.of( new GeoPoint(this, ray.getTargetPoint(t)));
     }
 
 }

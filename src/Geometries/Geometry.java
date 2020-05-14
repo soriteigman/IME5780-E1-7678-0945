@@ -1,7 +1,6 @@
 package Geometries;
 
-import Primitives.Point3D;
-import Primitives.Vector;
+import Primitives.*;
 
 /**
  * interface Geometry is the basic interface for all geometric objects
@@ -9,12 +8,28 @@ import Primitives.Vector;
  *
  * @author Sara Teigman and Esther Burack
  */
-public interface Geometry extends Intersectable
+public abstract class Geometry implements Intersectable
 {
+    public Geometry(Color emission) {
+        this.emission = emission;
+    }
+
+    public Geometry() {
+        this(Color.BLACK);
+    }
+
+    /**
+     * @return emission
+     */
+    public Color getEmission() {
+        return emission;
+    }
+
+    protected Color emission;
     /**
      *
      * @param p point on the geometry
      * @return normal
      */
-    Vector getNormal(Point3D p);
+    public abstract Vector getNormal(Point3D p);
 }

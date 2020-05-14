@@ -16,7 +16,7 @@ import static Primitives.Util.isZero;
  *
  * @author Dan
  */
-public class Polygon implements Geometry
+public class Polygon extends Geometry
 {
     /**
      * List of polygon's vertices
@@ -94,8 +94,8 @@ public class Polygon implements Geometry
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> intersections = _plane.findIntersections(ray);
+    public List<GeoPoint> findIntersections(Ray ray) {
+        List<GeoPoint> intersections = _plane.findIntersections(ray);
         if (intersections == null) return null;
 
         Point3D p0 = ray.getPoint();

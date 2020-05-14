@@ -105,8 +105,8 @@ class PolygonTest {
 
         //case 1- ray intersects with polygon
         Ray r = new Ray(new Point3D(1.0, -5.0, 3.0), new Vector(0.0, 3.0, 0.0));
-        List<Point3D> l = p.findIntersections(r);
-        List<Point3D> expectList = new ArrayList<Point3D>();
+        List<Intersectable.GeoPoint> l = p.findIntersections(r);
+        List<Intersectable.GeoPoint> expectList = new ArrayList<Intersectable.GeoPoint>();
         expectList.add(new Point3D(1.0, 4.0, 3.0));
         assertEquals(expectList, l);
 
