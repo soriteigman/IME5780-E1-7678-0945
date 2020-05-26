@@ -10,7 +10,7 @@ import renderer.Render;
 import scene.*;
 
 /**
- * Test rendering abasic image
+ * Test rendering a basic image
  *
  * @author Dan
  */
@@ -154,7 +154,7 @@ public class RenderTest {
                 .addAmbientLight(new AmbientLight(Color.WHITE, 0.3))
                 .addCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)))
                 .addDistance(100)
-                .addBackground(Color.WHITE)
+                .addBackground(Color.BLACK)
                 .build();
 
         scene.addGeometries(new Sphere(50, new Point3D(0, 0, 100)));

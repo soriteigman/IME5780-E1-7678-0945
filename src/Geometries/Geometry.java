@@ -11,7 +11,7 @@ import elements.Material;
  */
 public abstract class Geometry implements Intersectable
 {
-    protected Color _emission;
+    protected Color emission;
     protected Material _material;
 
     public Geometry() {
@@ -36,7 +36,6 @@ public abstract class Geometry implements Intersectable
         return emission;
     }
 
-    protected Color emission;
     /**
      *
      * @param p point on the geometry

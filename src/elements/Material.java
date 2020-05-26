@@ -1,5 +1,8 @@
 package elements;
 
+/**
+ * material class to store other information about the scene
+ */
 public class Material {
     private final double _kD;
     private final double _kS;

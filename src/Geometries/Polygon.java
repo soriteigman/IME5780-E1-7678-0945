@@ -4,6 +4,7 @@ import Primitives.*;
 import elements.Material;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static Primitives.Util.alignZero;
@@ -145,14 +146,15 @@ public class Polygon extends Geometry
     }
 
     @Override
-    public List<GeoPoint> findIntersections(Ray ray) {
-        List<GeoPoint> intersections = _plane.findIntersections(ray);
-        if (intersections == null) return null;
+    public List<GeoPoint> findIntersections(Ray ray, double maxDistance) {
+        List<GeoPoint> planeIntersections = _plane.findIntersections(ray, maxDistance);
+        if (planeIntersections == null)
+            return null;
 
         Point3D p0 = ray.getPoint();
         Vector v = ray.getDirection();
 
-        Vector v1  = _vertices.get(1).subtract(p0);
+        Vector v1 = _vertices.get(1).subtract(p0);
         Vector v2 = _vertices.get(0).subtract(p0);
         double sign = v.dotProduct(v1.crossProduct(v2));
         if (isZero(sign))
@@ -165,9 +167,14 @@ public class Polygon extends Geometry
             v2 = _vertices.get(i).subtract(p0);
             sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
             if (isZero(sign)) return null;
-            if (positive != (sign >0)) return null;
+            if (positive != (sign > 0)) return null;
         }
 
-        return intersections;
+        //for GeoPoint
+        List<GeoPoint> result = new LinkedList<>();
+        for (GeoPoint geo : planeIntersections) {
+            result.add(new GeoPoint(this, geo.getPoint()));
+        }
+        return result;
     }
 }

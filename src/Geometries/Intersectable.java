@@ -1,42 +1,48 @@
 package Geometries;
 
-import Primitives.Point3D;
-import Primitives.Ray;
+import Geometries.*;
+import Primitives.*;
+
 
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * Intersectable is a common interface for all geometries that are able
+ * to intersect from a ray to their entity (Shape)
+ */
 public interface Intersectable {
-    List<GeoPoint> findIntersections(Ray ray);
+
+    /**
+     * @param ray ray pointing toward a Gepmtry
+     * @return List<GeoPoint> return values
+     */
+    default List<GeoPoint> findIntersections(Ray ray) {
+        return findIntersections(ray, Double.POSITIVE_INFINITY);
+    }
+
+    List<GeoPoint> findIntersections(Ray ray, double maxDistance);
 
     /**
      * GeoPoint is just a tuple holding
-     * references to a specific point in a specific geometry
+     * references to a specific point ain a specific geometry
      */
-    public static class GeoPoint {
-        public Geometry geometry;
-        public Point3D point;
+    class GeoPoint {
 
-        public GeoPoint(Geometry geometry, Point3D point) {
-            this.geometry = geometry;
-            this.point = point;
-        }
+        protected Geometry _geometry;
+        protected Point3D point;
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof GeoPoint)) return false;
-            GeoPoint geoPoint = (GeoPoint) o;
-            return Objects.equals(geometry, geoPoint.geometry) &&
-                    Objects.equals(point, geoPoint.point);
-        }
-
-        public Geometry getGeometry() {
-            return geometry;
+        public GeoPoint(Geometry _geometry, Point3D pt) {
+            this._geometry = _geometry;
+            point = pt;
         }
 
         public Point3D getPoint() {
             return point;
         }
+
+        public Geometry getGeometry() {
+            return _geometry;
+        }
     }
+
 }

@@ -2,7 +2,9 @@ package elements;
 
 import Primitives.*;
 
-
+/**
+ * class to represent the directional light that illuminates the scene
+ */
 public class DirectionalLight extends Light implements LightSource {
     private final Vector _direction;
 

@@ -5,6 +5,8 @@ import Primitives.Ray;
 import Primitives.Vector;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class geometriesTest {
@@ -14,7 +16,7 @@ class geometriesTest {
      */
     @Test
     void findIntersections() {
-        // ============ Boundry Value Analysis ==============
+        // ============ Boundary Value Analysis ==============
         // TC01: empty list
         geometries g1 = new geometries();
         assertEquals(null, g1.findIntersections(new Ray( new Point3D(4,5,4),new Vector(1,2,3))), "Error! Geometries found intersections when there were no shapes");
