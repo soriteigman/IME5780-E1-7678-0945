@@ -1,4 +1,4 @@
-package Primitives;
+package elements;
 
 public class Material {
     private final double _kD;

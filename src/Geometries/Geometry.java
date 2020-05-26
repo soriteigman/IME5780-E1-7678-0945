@@ -1,6 +1,7 @@
 package Geometries;
 
 import Primitives.*;
+import elements.Material;
 
 /**
  * interface Geometry is the basic interface for all geometric objects

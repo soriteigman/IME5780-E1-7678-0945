@@ -14,9 +14,9 @@ public class Vector
     {
         Coordinate zero=new Coordinate(0.0);
 
-            if (_x.equals(zero) && _y.equals(zero) && _z.equals(zero))
-                throw new IllegalArgumentException("cannot create zero vector");
-            head=new Point3D(new Coordinate(_x),new Coordinate(_y),new Coordinate(_z));
+        if (_x.equals(zero) && _y.equals(zero) && _z.equals(zero))
+            throw new IllegalArgumentException("cannot create zero vector");
+        head=new Point3D(new Coordinate(_x),new Coordinate(_y),new Coordinate(_z));
     }
 
     public Vector(double _x, double _y, double _z)

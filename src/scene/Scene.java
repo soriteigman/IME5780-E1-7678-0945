@@ -1,11 +1,9 @@
 package scene;
 
 import elements.*;
-import Geometries.geometries;
-import Geometries.Intersectable;
+import Geometries.*;
 import Primitives.Color;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +15,7 @@ public class Scene {
     private Camera _camera;
     private double _distance;
     private AmbientLight _ambientLight;
-    private List<LightSource> _lights = new LinkedList<LightSource>();
+    private List<LightSource> _lights = null;
 
 
     public AmbientLight getAmbientLight() {
@@ -45,9 +43,9 @@ public class Scene {
     }
 
 
-    //public List<LightSource> getLightSources() {
-    //    return _lights;
-    //}
+    public List<LightSource> getLightSources() {
+        return _lights;
+    }
 
     public void addGeometries(Intersectable... intersectables) {
         for (Intersectable i : intersectables) {
@@ -61,29 +59,9 @@ public class Scene {
         }
     }
 
-    public void setBackground(Color _background) {
-        this._background = _background;
-    }
-
-    public void setCamera(Camera _camera) {
-        this._camera = _camera;
-    }
-
-    public void setDistance(double _distance) {
-        this._distance = _distance;
-    }
-
-    public void setAmbientLight(AmbientLight _ambientLight) {
-        this._ambientLight = _ambientLight;
-    }
-
-    public List<LightSource> get_lights() {
-        return _lights;
-    }
-
     public void addLights(LightSource light) {
         if (_lights == null) {
-            _lights = new ArrayList<>();
+            _lights = new LinkedList<>();
         }
         _lights.add(light);
     }

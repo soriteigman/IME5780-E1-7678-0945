@@ -1,6 +1,7 @@
 package elements;
 
-import Primitives.*;
+import Primitives.Color;
+import Primitives.Point3D;
 
 public abstract class Light {
     /**

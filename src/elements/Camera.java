@@ -1,9 +1,7 @@
 package elements;
 
-import Primitives.Point3D;
-import Primitives.Ray;
-import Primitives.Util;
-import Primitives.Vector;
+import Primitives.*;
+
 
 import static Primitives.Util.isZero;
 
@@ -28,19 +26,19 @@ public class Camera {
     }
 
 
-    public Point3D get_p0() {
+    public Point3D getP0() {
         return new Point3D(_p0);
     }
 
-    public Vector get_vTo() {
+    public Vector getVTo() {
         return new Vector(_vTo);
     }
 
-    public Vector get_vUp() {
+    public Vector getVUp() {
         return new Vector(_vUp);
     }
 
-    public Vector get_vRight() {
+    public Vector getVRight() {
         return new Vector(_vRight);
     }
 
@@ -65,7 +63,7 @@ public class Camera {
             Pij = Pij.add(_vRight.scale(xj));
         }
         if (!isZero(yi)) {
-            Pij = Pij.add(_vUp.scale(-yi)); // Pij.subtract(_vUp.scale(yi))
+            Pij = Pij.subtract(_vUp.scale(yi)); // Pij.add(_vUp.scale(-yi))
         }
 
         Vector Vij = Pij.subtract(_p0);

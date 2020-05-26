@@ -1,7 +1,9 @@
 package Geometries;
 
 import Primitives.Color;
-import Primitives.Material;
+import elements.Material;
+
+import static Primitives.Util.isZero;
 
 /**
  * @author Sara Teigman and Esther Burack
@@ -22,10 +24,15 @@ public abstract class RadialGeometry extends Geometry
 
     public RadialGeometry(Color emission, Material material, double _radius) {
         super(emission, material);
-        this._radius = _radius;
+        setRadius(_radius);
     }
 
     public double get_radius() {
         return _radius;
+    }
+    public void setRadius(double radius) {
+        if (isZero(radius) || (radius < 0.0))
+            throw new IllegalArgumentException("radius " + radius + " is not valid");
+        this._radius = radius;
     }
 }

@@ -13,19 +13,23 @@ import javax.imageio.stream.*;
  * finally producing a non-optimized jpeg image from this matrix.
  * The class although is responsible of holding image related parameters
  * of View Plane - pixel matrix size and resolution
+ *
  * @author Dan
  */
 public class ImageWriter {
-    private double _imageWidth, _imageHeight;
-    private int _nX, _nY;
+    private final double _imageWidth;
+    private final double _imageHeight;
+    private final int _nX;
+    private final int _nY;
 
     private final String PROJECT_PATH = System.getProperty("user.dir");
 
-    private BufferedImage _image;
+    private final BufferedImage _image;
 
-    private String _imageName;
+    private final String _imageName;
 
     // ***************** Constructors ********************** //
+
     /**
      * Image Writer constructor accepting image name and View Plane parameters,
      * @param imageName the name of jpeg file
@@ -76,7 +80,7 @@ public class ImageWriter {
      * of the project
      */
     public void writeToImage(){
-        File ouFile = new File(PROJECT_PATH + "/" + _imageName + ".jpg");
+        File ouFile = new File(PROJECT_PATH + "/IMAGES/" + _imageName + ".jpg");
         try {
             javax.imageio.ImageWriter jpgWriter = ImageIO.getImageWritersByFormatName("jpg").next();
             ImageWriteParam jpgWriteParam = jpgWriter.getDefaultWriteParam();
