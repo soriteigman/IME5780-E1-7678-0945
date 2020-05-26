@@ -23,6 +23,11 @@ public class Cylinder extends Tube
         height=h;
     }
 
+    public Cylinder(Color emission, Material material, double _radius, Ray ray, double height) {
+        super(emission, material, _radius, ray);
+        this.height = height;
+    }
+
     @Override
     public String toString()
     {

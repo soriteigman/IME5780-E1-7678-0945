@@ -10,13 +10,23 @@ import Primitives.*;
  */
 public abstract class Geometry implements Intersectable
 {
-    public Geometry(Color emission) {
-        this.emission = emission;
-    }
+    protected Color _emission;
+    protected Material _material;
 
     public Geometry() {
-        this(Color.BLACK);
+        this(Color.BLACK,new Material(0,0,0));
     }
+
+    public Geometry(Color emission, Material material) {
+        this.emission = new Color(emission);
+        this._material = new Material(material);
+    }
+
+    public Geometry(Color _emission) {
+
+        this(_emission, new Material(0d, 0d, 0));
+    }
+
 
     /**
      * @return emission
@@ -32,4 +42,8 @@ public abstract class Geometry implements Intersectable
      * @return normal
      */
     public abstract Vector getNormal(Point3D p);
+
+    public Material get_material() {
+        return _material;
+    }
 }

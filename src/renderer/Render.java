@@ -104,35 +104,35 @@ public class Render {
      * @param gp intersection the point for which the color is required
      * @return the color intensity
      */
-    /*private Color calcColor(GeoPoint gp) {
+    private Color calcColor(GeoPoint gp) {
         Color result = _scene.getAmbientLight().getIntensity();
-        result = result.add(gp.getGeometry().getEmissionLight());
-        List<LightSource> lights = _scene.getLightSources();
+        result = result.add(gp.getGeometry().getEmission());
+        List<LightSource> lights = _scene.get_lights();
 
-        Vector v = gp.getPoint().subtract(_scene.getCamera().getP0()).normalize();
+        Vector v = gp.getPoint().subtract(_scene.getCamera().get_p0()).normalize();
         Vector n = gp.getGeometry().getNormal(gp.getPoint());
 
-        Material material = gp.getGeometry().getMaterial();
+        Material material = gp.getGeometry().get_material();
         int nShininess = material.getnShininess();
-        double kd = material.getKd();
-        double ks = material.getKs();
-        if (_scene.getLightSources() != null) {
+        double kd = material.getkD();
+        double ks = material.getkS();
+        if (_scene.get_lights() != null) {
             for (LightSource lightSource : lights) {
 
                 Vector l = lightSource.getL(gp.getPoint());
                 double nl = alignZero(n.dotProduct(l));
                 double nv = alignZero(n.dotProduct(v));
 
-                if (sign(nl) == sign(nv)) {
+                /*if (sign(nl) == sign(nv)) {
                     Color ip = lightSource.getIntensity(gp.getPoint());
                     result = result.add(
                             calcDiffusive(kd, nl, ip),
                             calcSpecular(ks, l, n, nl, v, nShininess, ip)
                     );
-                }
+                }*/
             }
         }
 
         return result;
-    }*/
+    }
 }

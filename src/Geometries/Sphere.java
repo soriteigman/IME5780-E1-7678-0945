@@ -17,6 +17,11 @@ public class Sphere extends RadialGeometry
         this._center= new Point3D(_center);
     }
 
+    public Sphere(Color emission, Material material, double _radius, Point3D _center) {
+        super(emission, material, _radius);
+        this._center = _center;
+    }
+
     @Override
     public boolean equals(Object o)
     {

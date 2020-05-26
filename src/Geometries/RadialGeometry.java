@@ -1,5 +1,8 @@
 package Geometries;
 
+import Primitives.Color;
+import Primitives.Material;
+
 /**
  * @author Sara Teigman and Esther Burack
  * RadialGeometry is an abstract class that defines
@@ -15,6 +18,11 @@ public abstract class RadialGeometry extends Geometry
 
     public RadialGeometry(RadialGeometry other){
         this._radius= other._radius;
+    }
+
+    public RadialGeometry(Color emission, Material material, double _radius) {
+        super(emission, material);
+        this._radius = _radius;
     }
 
     public double get_radius() {

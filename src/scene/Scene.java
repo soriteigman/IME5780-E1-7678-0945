@@ -6,6 +6,7 @@ import Geometries.Intersectable;
 import Primitives.Color;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Scene {
@@ -16,7 +17,7 @@ public class Scene {
     private Camera _camera;
     private double _distance;
     private AmbientLight _ambientLight;
-    //private List<LightSource> _lights = null;
+    private List<LightSource> _lights = new LinkedList<LightSource>();
 
 
     public AmbientLight getAmbientLight() {
@@ -76,12 +77,16 @@ public class Scene {
         this._ambientLight = _ambientLight;
     }
 
-    /*public void addLights(LightSource light) {
+    public List<LightSource> get_lights() {
+        return _lights;
+    }
+
+    public void addLights(LightSource light) {
         if (_lights == null) {
             _lights = new ArrayList<>();
         }
         _lights.add(light);
-    }*/
+    }
 
     public static class SceneBuilder {
         private String name;

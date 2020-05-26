@@ -1,8 +1,6 @@
 package Geometries;
 
-import Primitives.Point3D;
-import Primitives.Ray;
-import Primitives.Vector;
+import Primitives.*;
 
 import java.util.List;
 
@@ -31,6 +29,12 @@ public class Plane extends Geometry
     {
         this._p = new Point3D(_p);
         this._normal = new Vector(_normal);
+    }
+
+    public Plane(Color emission, Material material, Point3D _p, Vector _normal) {
+        super(emission, material);
+        this._p = _p;
+        this._normal = _normal;
     }
 
     @Override

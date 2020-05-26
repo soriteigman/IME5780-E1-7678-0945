@@ -31,7 +31,7 @@ class TriangleTest {
         // ============ Equivalence Partitions Tests ==============
 
         //TCO1: ray intersects with triangle
-        LinkedList<Point3D> intersects = new LinkedList<>( p1.findIntersections(new Ray( new Point3D(3.5,2,1),new Vector(0,0,1))));
+        LinkedList<Intersectable.GeoPoint> intersects = new LinkedList<Intersectable.GeoPoint>( p1.findIntersections(new Ray( new Point3D(3.5,2,1),new Vector(0,0,1))));
         //checks amount of points returned
         if (intersects == null || intersects.size()!=1 )
             fail("invalid amount of points returned");
