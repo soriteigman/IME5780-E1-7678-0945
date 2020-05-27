@@ -1,6 +1,5 @@
 package Primitives;
 
-import java.util.Objects;
 /**
  * Class Vector is the basic class representing a vector of Euclidean geometry in Cartesian
  *  * 3-Dimensional coordinate system.
@@ -10,38 +9,25 @@ public class Vector
 {
     Point3D head;
 
-    public Vector(Coordinate _x, Coordinate _y, Coordinate _z)
-    {
-        Coordinate zero=new Coordinate(0.0);
 
-        if (_x.equals(zero) && _y.equals(zero) && _z.equals(zero))
-            throw new IllegalArgumentException("cannot create zero vector");
-        head=new Point3D(new Coordinate(_x),new Coordinate(_y),new Coordinate(_z));
+    public Vector(Point3D p) {
+        if (p.equals(Point3D.ZERO)) {
+            throw new IllegalArgumentException("Point3D(0.0,0.0,0.0) not valid for vector head");
+        }
+        this.head = new Point3D(p._x._coord, p._y._coord, p._z._coord);
     }
 
-    public Vector(double _x, double _y, double _z)
-    {
-        Point3D temp =new Point3D(new Coordinate(_x),new Coordinate(_y),new Coordinate(_z));
-        if (temp.equals( Point3D.ZERO))
-            throw new IllegalArgumentException("cannot create zero vector");
-        head=new Point3D(temp);
+
+    public Vector(Vector v) {
+        this(v.head);
     }
 
-    public Vector(Point3D head)
-    {
-        if (head.equals( Point3D.ZERO))
-            throw new IllegalArgumentException("cannot create zero vector");
-        this.head = head;
-    }
-
-    public Vector(Vector v)
-    {
-        this.head = v.head;
-    }
-
-    public Vector(Point3D p1, Point3D p2)
-    {
+    public Vector(Point3D p1, Point3D p2) {
         this(p1.subtract(p2));
+    }
+
+    public Vector(double x,double y, double z) {
+        this(new Point3D(x,y,z));
     }
 
     /**
@@ -122,17 +108,21 @@ public class Vector
      *
      * @return normalizes vector that was sent
      */
-    public Vector normalize()
-    {
+    public Vector normalize() {
+
         double x = this.head._x._coord;
         double y = this.head._y._coord;
         double z = this.head._z._coord;
+
         double length = this.length();
+
         if (length == 0)
             throw new ArithmeticException("divide by Zero");
+
         this.head._x = new Coordinate(x / length);
         this.head._y = new Coordinate(y / length);
         this.head._z = new Coordinate(z / length);
+
         return this;
     }
 

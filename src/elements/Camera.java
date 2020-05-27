@@ -42,8 +42,8 @@ public class Camera {
         return new Vector(_vRight);
     }
 
-    public Ray constructRayThroughPixel(int nX, int nY,
-                                        int j, int i, double screenDistance,
+    public Ray constructRayThroughPixel(int nX, int nY, int j,
+                                        int i, double screenDistance,
                                         double screenWidth, double screenHeight) {
         if (isZero(screenDistance)) {
             throw new IllegalArgumentException("distance cannot be 0");

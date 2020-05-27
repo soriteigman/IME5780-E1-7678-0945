@@ -7,36 +7,38 @@ import java.lang.Math;
  *  *  * 3-Dimensional coordinate system.
  *  *  * @author Sara Teigman and Esther Burack
  *  * */
-public class Point3D
-{
+public class Point3D {
     Coordinate _x;
     Coordinate _y;
     Coordinate _z;
     /**
      * zero point3D to compare with other point3Ds
      */
-    public final static Point3D ZERO = new Point3D(0.0,0.0,0.0);
 
 
-    public Point3D(Point3D p)
-    {
-        _x=p._x;
-        _y=p._y;
-        _z=p._z;
-    }
+    /**
+     * @param _x coordinate on the X axis
+     * @param _y coordinate on the Y axis
+     * @param _z coordinate on the Z axis
+     */
+    public final static Point3D ZERO = new Point3D(0.0, 0.0, 0.0);
 
-    public Point3D(double _x, double _y, double _z)
-    {
-        this(new Coordinate(_x),new Coordinate(_y),new Coordinate(_z));
-    }
-
-    public Point3D(Coordinate _x, Coordinate _y, Coordinate _z)
-    {
-        this._x=_x;
+    public Point3D(Coordinate _x, Coordinate _y, Coordinate _z) {
+        this._x = _x;
         this._y = _y;
         this._z = _z;
     }
 
+    public Point3D(Point3D p) {
+        this._x = new Coordinate(p._x);
+        this._y = new Coordinate(p._y);
+        this._z = new Coordinate(p._z);
+    }
+
+
+    public Point3D(double _x, double _y, double _z) {
+        this(new Coordinate(_x), new Coordinate(_y), new Coordinate(_z));
+    }
 
     public Coordinate get_x() {
         return new Coordinate(_x);
@@ -50,64 +52,52 @@ public class Point3D
         return new Coordinate(_z);
     }
 
+    public double distanceSquared(Point3D other) {
+        return ((other._x._coord - this._x._coord) * (other._x._coord - this._x._coord) +
+                (other._y._coord - this._y._coord) * (other._y._coord - this._y._coord) +
+                (other._z._coord - this._z._coord) * (other._z._coord - this._z._coord));
+    }
+
+    public double distance(Point3D other) {
+        return Math.sqrt(distanceSquared(other));
+    }
+
+    public Point3D add(Vector v) {
+        return new Point3D(this._x._coord + v.head._x._coord,
+                this._y._coord + v.head._y._coord,
+                this._z._coord + v.head._z._coord);
+    }
+
+    public Point3D subtract(Vector v) {
+        return new Point3D(this._x._coord - v.head._x._coord,
+                this._y._coord - v.head._y._coord,
+                this._z._coord - v.head._z._coord);
+    }
+
+    public Vector subtract(Point3D p) {
+        return new Vector(new Point3D(
+                this._x._coord - p._x._coord,
+                this._y._coord - p._y._coord,
+                this._z._coord - p._z._coord));
+    }
+
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Point3D)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Point3D point3D = (Point3D) o;
         return _x.equals(point3D._x) &&
                 _y.equals(point3D._y) &&
                 _z.equals(point3D._z);
     }
 
-
     @Override
     public String toString() {
-        return "("+_x+","+_y+","+_z+")";
-    }
-
-    /**
-     * creates a vector by subtracting two points
-     * @param secondPoint point to subtract
-     * @return vector result
-     */
-    public Vector subtract(Point3D secondPoint)
-    {
-        return new Vector(new Point3D(this._x.get()-secondPoint._x.get(),this._y.get()-secondPoint._y.get(),this._z.get()-secondPoint._z.get()));
-    }
-    public Point3D subtract(Vector v) {
-        return new Point3D(this._x._coord - v.head._x._coord,
-                this._y._coord - v.head._y._coord,
-                this._z._coord - v.head._z._coord);
-    }
-    /**
-     * creates a point from adding a vector to a point
-     * @param v vector to add
-     * @return point result
-     */
-    public Point3D add(Vector v)
-    {
-        return new Point3D(this._x.get()+v.head._x.get(),this._y.get()+v.head._y.get(),this._z.get()+v.head._z.get());
-    }
-
-    /**
-     * distance between two points squared
-     * @param p point to compare
-     * @return returned number
-     */
-    public double distanceSquared(Point3D p)
-    {
-        return ((this._x.get()+p._x.get())*(this._x.get()+p._x.get()))+((this._y.get()+p._y.get())*(this._y.get()+p._y.get()))+((this._z.get()+p._z.get())*(this._z.get()+p._z.get()));
-    }
-
-    /**
-     * distance between two points
-     * @param p point to compare
-     * @return returns the distance result
-     */
-    public double distance(Point3D p)
-    {
-        return Math.sqrt(distanceSquared(p));
+        return "(" +
+                _x +
+                ", " + _y +
+                ", " + _z +
+                ')';
     }
 }
+

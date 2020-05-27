@@ -1,6 +1,5 @@
 package Primitives;
 
-
 import static Primitives.Util.isZero;
 
 /**
@@ -31,14 +30,13 @@ public class Ray {
     }
 
     public Ray(Point3D point, Vector direction, Vector normal) {
-        //head+ normal.scale(±DELTA)
+        //point + normal.scale(±DELTA)
         _direction = new Vector(direction).normalized();
 
         double nv = normal.dotProduct(direction);
 
         Vector normalDelta = normal.scale((nv > 0 ? DELTA : -DELTA));
         _point = point.add(normalDelta);
-
     }
 
     /**
@@ -48,22 +46,22 @@ public class Ray {
      */
     public Ray(Ray other) {
         this._point = new Point3D(other._point);
-        this._direction = other._direction.normalized();
+        this._direction = other._direction.normalized(); //create new normalized vector
     }
 
     /**
-     * @param length
+     * @param length length to reach the target point
      * @return new Point3D
      * @author Dan Zilberstein
      */
     public Point3D getTargetPoint(double length) {
-        Vector targetVector;
-        try {
-            targetVector = _direction.scale(length);
-        } catch (Exception e) {
+        if (isZero(length)) {
             return _point;
         }
-        return isZero(length) ? _point : _point.add(targetVector);
+
+        Vector targetVector = _direction.scale(length);
+
+        return _point.add(targetVector);
     }
 
     @Override
@@ -74,11 +72,12 @@ public class Ray {
         if (!(obj instanceof Ray)) {
             return false;
         }
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
+
         Ray other = (Ray) obj;
-        return (_point.equals(other._point) &&
-                _direction.equals(other._direction));
+        return (_point.equals(other._point) && _direction.equals(other._direction));
     }
 
     @Override

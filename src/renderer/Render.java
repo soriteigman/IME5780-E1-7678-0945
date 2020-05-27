@@ -1,12 +1,9 @@
 package renderer;
 
-import elements.AmbientLight;
-import elements.Camera;
-import elements.LightSource;
-import elements.Material;
-import Geometries.Intersectable;
+import elements.*;
+import Geometries.*;
 import Primitives.*;
-import scene.Scene;
+import scene.*;
 
 import java.util.List;
 
@@ -18,8 +15,8 @@ import static Primitives.Util.isZero;
  *
  */
 public class Render {
-    private static final int MAX_CALC_COLOR_LEVEL = 30;
-    private static final double MIN_CALC_COLOR_K = 0.0001;
+    private static final int MAX_CALC_COLOR_LEVEL = 50;
+    private static final double MIN_CALC_COLOR_K = 0.0000001;
 
     private final ImageWriter _imageWriter;
     private final Scene _scene;
@@ -66,18 +63,21 @@ public class Render {
                 } else {
                     _imageWriter.writePixel(collumn, row, calcColor(closestPoint, ray).getColor());
                 }
-
             }
         }
     }
 
     private GeoPoint getClosestPoint(List<GeoPoint> intersectionPoints) {
+
+        if (intersectionPoints == null) {
+            return null;
+        }
+
         GeoPoint result = null;
 
         Point3D p0 = _scene.getCamera().getP0();
         double minDist = Double.MAX_VALUE;
-        double currentDistance = 0;
-
+        double currentDistance;
 
         for (GeoPoint geoPoint : intersectionPoints) {
             currentDistance = p0.distance(geoPoint.getPoint());
@@ -98,9 +98,11 @@ public class Render {
      * @return the closest point
      */
     private GeoPoint findClosestIntersection(Ray ray) {
+
         if (ray == null) {
             return null;
         }
+
         GeoPoint closestPoint = null;
         double closestDistance = Double.MAX_VALUE;
         Point3D ray_p0 = ray.getPoint();
@@ -136,6 +138,13 @@ public class Render {
         Vector v = pointGeo.subtract(_scene.getCamera().getP0()).normalize();
         Vector n = geoPoint.getGeometry().getNormal(pointGeo);
 
+        double nv = alignZero(n.dotProduct(v));
+        if (nv == 0) {
+            //ray parallel to geometry surface ??
+            //and orthogonal to normal
+            return result;
+        }
+
         Material material = geoPoint.getGeometry().get_material();
         int nShininess = material.getnShininess();
         double kd = material.getkD();
@@ -145,7 +154,7 @@ public class Render {
         double kkr = k * kr;
         double kkt = k * kt;
 
-        result = getLightSourcesColors(geoPoint, k, result, v, n, nShininess, kd, ks);
+        result = result.add(getLightSourcesColors(geoPoint, k, result, v, n, nv, nShininess, kd, ks));
 
         if (kkr > MIN_CALC_COLOR_K) {
             Ray reflectedRay = constructReflectedRay(pointGeo, inRay, n);
@@ -164,19 +173,18 @@ public class Render {
         return result;
     }
 
-    private Color getLightSourcesColors(GeoPoint geoPoint, double k, Color result, Vector v, Vector n, int nShininess, double kd, double ks) {
+    private Color getLightSourcesColors(GeoPoint geoPoint, double k, Color result, Vector v, Vector n, double nv, int nShininess, double kd, double ks) {
         Point3D pointGeo = geoPoint.getPoint();
         List<LightSource> lightSources = _scene.getLightSources();
         if (lightSources != null) {
             for (LightSource lightSource : lightSources) {
                 Vector l = lightSource.getL(pointGeo);
                 double nl = alignZero(n.dotProduct(l));
-                double nv = alignZero(n.dotProduct(v));
                 if (nl * nv > 0) {
 //                if (sign(nl) == sign(nv) && nl != 0 && nv != 0) {
+//                    if (unshaded(lightSource, l, n, geoPoint)) {
                     double ktr = transparency(lightSource, l, n, geoPoint);
                     if (ktr * k > MIN_CALC_COLOR_K) {
-//                    if (unshaded(lightSource, l, n, geoPoint)) {
                         Color ip = lightSource.getIntensity(pointGeo).scale(ktr);
                         result = result.add(
                                 calcDiffusive(kd, nl, ip),
@@ -222,6 +230,7 @@ public class Render {
      * shiny way. This is defined by [rs,gs,bs](-V.R)^p, where R is the mirror reflection direction vector we discussed
      * in class (and also used for ray tracing), and where p is a specular power. The higher the value of p, the shinier
      * the surface.
+     * </p>
      */
     private Color calcSpecular(double ks, Vector l, Vector n, double nl, Vector V, int nShininess, Color ip) {
         double p = nShininess;
@@ -250,6 +259,7 @@ public class Render {
      * reflecting from a surface which is diffuse, or non-glossy. One example of a non-glossysurface is paper.
      * In general, you'll also want this to have a non-gray color value,
      * so this term would in general be a color defined as: [rd,gd,bd](n•L)
+     * </p>
      */
     private Color calcDiffusive(double kd, double nl, Color ip) {
         return ip.scale(Math.abs(nl) * kd);

@@ -10,17 +10,30 @@ import static Primitives.Util.isZero;
 
 public class Tube extends RadialGeometry
 {
-    Ray ray;
+    protected final Ray ray;
 
-    public Tube(double _radius, Ray ray)
-    {
-        super(_radius);
-        this.ray = ray;
+    /**
+     * constructor for a new Cylinder object
+     *
+     * @param _radius       the radius of the tube
+     * @param _ray          the direction of the tube from the referenced point
+     * @param _material     the material of the tube
+     * @param emissionLight the emission light of the tube
+     * @throws Exception in case of negative or zero radius from RadialGeometry constructor
+     */
+    public Tube(Color emissionLight, Material _material, double _radius, Ray _ray) {
+        super(Color.BLACK, _radius);
+        this._material = _material;
+        this.ray = new Ray(_ray);
+
     }
 
-    public Tube(Color emission, Material material, double _radius, Ray ray) {
-        super(emission, material, _radius);
-        this.ray = ray;
+    public Tube(double _radius, Ray _ray) {
+        this(Color.BLACK, new Material(0, 0, 0), _radius, _ray);
+    }
+
+    public Tube(Color emissionLight, double _radius, Ray _ray) {
+        this(emissionLight, new Material(0, 0, 0), _radius, _ray);
     }
 
     @Override
@@ -44,8 +57,6 @@ public class Tube extends RadialGeometry
                 ", _radius=" + _radius +
                 '}';
     }
-
-
 
     @Override
     public List<GeoPoint> findIntersections(Ray anotherray, double maxDistance) {

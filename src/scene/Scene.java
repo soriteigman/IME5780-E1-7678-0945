@@ -2,7 +2,7 @@ package scene;
 
 import elements.*;
 import Geometries.*;
-import Primitives.Color;
+import Primitives.*;
 
 import java.util.LinkedList;
 import java.util.List;

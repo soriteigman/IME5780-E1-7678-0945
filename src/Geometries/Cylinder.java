@@ -3,6 +3,7 @@ package Geometries;
 import Primitives.*;
 import elements.Material;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static Primitives.Util.alignZero;
@@ -66,6 +67,14 @@ public class Cylinder extends Tube
 
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
-        return super.findIntersections(ray);
+        List<GeoPoint> intersections = super.findIntersections(ray);
+        List<GeoPoint> result = new LinkedList<>();
+        if (intersections != null) {
+            for (GeoPoint geoPoint : intersections) {
+                result.add(new GeoPoint(this, geoPoint.getPoint()));
+            }
+            return result;
+        }
+        return null;
     }
 }

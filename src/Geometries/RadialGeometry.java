@@ -12,27 +12,44 @@ import static Primitives.Util.isZero;
  */
 public abstract class RadialGeometry extends Geometry
 {
-    double  _radius;
+    protected double  _radius;
 
-    public RadialGeometry(double _radius) {
-        this._radius = _radius;
+    /**
+     * constructor for a new extended  RadialGeometry object.
+     *
+     * @param radius   the radius of the RadialGeometry
+     * @param material the material of the RadialGeometry
+     * @throws Exception in case of negative or zero radius
+     */
+    public RadialGeometry(Color emissionLight, double radius, Material material) {
+        super(emissionLight, material);
+        setRadius(radius);
     }
 
-    public RadialGeometry(RadialGeometry other){
-        this._radius= other._radius;
+    public RadialGeometry(Color emissionLight, double radius) {
+        super(emissionLight);
+        setRadius(radius);
     }
 
-    public RadialGeometry(Color emission, Material material, double _radius) {
-        super(emission, material);
-        setRadius(_radius);
+    public RadialGeometry(double radius) {
+        super();
+        setRadius(radius);
     }
 
-    public double get_radius() {
+    public RadialGeometry(RadialGeometry other) {
+        super(other.emission, other._material);
+        setRadius(other._radius);
+    }
+
+    public double getRadius() {
         return _radius;
     }
+
     public void setRadius(double radius) {
         if (isZero(radius) || (radius < 0.0))
             throw new IllegalArgumentException("radius " + radius + " is not valid");
         this._radius = radius;
     }
+
+
 }

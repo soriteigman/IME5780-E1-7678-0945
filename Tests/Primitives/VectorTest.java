@@ -89,7 +89,7 @@ class VectorTest {
     }
 
     @Test
-    void normalizeTest() {
+    void testnormalize() {
         Vector v = new Vector(3.5, -5, 10);
         v.normalize();
         assertEquals(1, v.length(), 1e-10);
@@ -99,7 +99,7 @@ class VectorTest {
             v.normalize();
             fail("Didn't throw divide by zero exception!");
         } catch (IllegalArgumentException ex) {
-            assertEquals("cannot create zero vector", ex.getMessage());
+            assertEquals("Point3D(0.0,0.0,0.0) not valid for vector head", ex.getMessage());
         }
         assertTrue(true);
     }

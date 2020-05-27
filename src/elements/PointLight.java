@@ -49,7 +49,7 @@ public class PointLight extends Light implements LightSource {
         this(colorIntensity, position, 1d, 0d, 0d);
     }
 
-    //dummy overriding Light getIntensity()
+    // overriding Light getIntensity()
     @Override
     public Color getIntensity() {
         return super.getIntensity();

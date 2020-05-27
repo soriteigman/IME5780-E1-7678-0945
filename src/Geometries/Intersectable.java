@@ -43,6 +43,15 @@ public interface Intersectable {
         public Geometry getGeometry() {
             return _geometry;
         }
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            GeoPoint geoPoint = (GeoPoint) o;
+
+            return ((_geometry.equals(geoPoint._geometry)) && (point.equals(geoPoint.point)));
+        }
     }
 
 }
