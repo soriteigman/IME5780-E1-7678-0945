@@ -21,6 +21,8 @@ public class Render {
     private final ImageWriter _imageWriter;
     private final Scene _scene;
 
+    private static final double DELTA = 0.1;
+
     public Render(ImageWriter imageWriter, Scene scene) {
         this._imageWriter = imageWriter;
         this._scene = scene;
