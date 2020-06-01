@@ -19,7 +19,8 @@ public class Material {
         this._kr = kr;
     }
 
-    public Material(double kD, double kS, int nShininess) {
+    public Material(double kD, double kS, int nShininess)
+    {
         this(kD, kS, nShininess, 0, 0);
     }
 

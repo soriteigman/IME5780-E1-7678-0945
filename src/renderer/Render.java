@@ -15,8 +15,8 @@ import static Primitives.Util.isZero;
  *
  */
 public class Render {
-    private static final int MAX_CALC_COLOR_LEVEL = 50;
-    private static final double MIN_CALC_COLOR_K = 0.0000001;
+    private static final int MAX_CALC_COLOR_LEVEL = 10;
+    private static final double MIN_CALC_COLOR_K = 0.001;
 
     private final ImageWriter _imageWriter;
     private final Scene _scene;
@@ -269,24 +269,6 @@ public class Render {
 
     private boolean sign(double val) {
         return (val > 0d);
-    }
-
-    private boolean unshaded_0(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
-        Vector lightDirection = l.scale(-1); // from point to light source
-        Ray lightRay = new Ray(geopoint.getPoint(), lightDirection, n);
-        Point3D pointGeo = geopoint.getPoint();
-
-        List<GeoPoint> intersections = _scene.getGeometries().findIntersections(lightRay);
-        if (intersections == null) {
-            return true;
-        }
-        double lightDistance = light.getDistance(pointGeo);
-        for (GeoPoint gp : intersections) {
-            double temp = gp.getPoint().distance(pointGeo) - lightDistance;
-            if (alignZero(temp) <= 0)
-                return false;
-        }
-        return true;
     }
 
     private double transparency(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
